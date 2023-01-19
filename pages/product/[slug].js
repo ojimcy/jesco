@@ -1,6 +1,6 @@
-import React from 'react'
-import NextLink from 'next/link'
-import Image from 'next/image'
+import React from 'react';
+import NextLink from 'next/link';
+import Image from 'next/image';
 import {
   Grid,
   Link,
@@ -9,19 +9,17 @@ import {
   Typography,
   Card,
   Button,
-} from '@material-ui/core'
-import { useRouter } from 'next/router'
-import data from '../../utils/data'
-import Layout from '../../components/Layout'
-import useStyles from '../../utils/styles'
+} from '@material-ui/core';
+import Layout from '../../components/Layout';
+import useStyles from '../../utils/styles';
+import db from '@/utils/db';
+import Product from '@/models/Product';
 
-export default function ProductScreen() {
-  const classes = useStyles()
-  const router = useRouter()
-  const { slug } = router.query
-  const product = data.products.find((a) => a.slug === slug)
+export default function ProductScreen(props) {
+  const classes = useStyles();
+  const { product } = props;
   if (!product) {
-    return <div>Product Not Found</div>
+    return <div>Product Not Found</div>;
   }
   return (
     <Layout title={product.name} description={product.description}>
@@ -45,7 +43,9 @@ export default function ProductScreen() {
         <Grid item md={3} xs={12}>
           <List>
             <ListItem>
-              <Typography component="h1" variant='h1'>{product.name}</Typography>
+              <Typography component="h1" variant="h1">
+                {product.name}
+              </Typography>
             </ListItem>
             <ListItem>
               <Typography>Category: {product.category}</Typography>
@@ -98,5 +98,19 @@ export default function ProductScreen() {
         </Grid>
       </Grid>
     </Layout>
-  )
+  );
+}
+
+export async function getServerSideProps(context) {
+  const { params } = context;
+  const { slug } = params;
+
+  await db.connect();
+  const product = await Product.findOne({ slug }).lean();
+  await db.disconnect();
+  return {
+    props: {
+      product: db.convertDocToObj(product),
+    },
+  };
 }
