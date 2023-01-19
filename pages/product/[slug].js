@@ -28,7 +28,7 @@ export default function ProductScreen() {
       <div className={classes.section}>
         <NextLink href="/" passHref>
           <Link>
-            <Typography>back to products</Typography>
+            <Typography>Back to Products</Typography>
           </Link>
         </NextLink>
       </div>
