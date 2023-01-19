@@ -13,7 +13,7 @@ import {
   Switch,
 } from '@material-ui/core';
 import useStyles from '../utils/styles';
-import { Store } from '@/utils/Store';
+import { Store } from '@/utils/store';
 import Cookies from 'js-cookie';
 
 export default function Layout({ title, description, children }) {
