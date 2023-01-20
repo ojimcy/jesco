@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import Head from 'next/head';
-import NextLink from 'next/link';
 import {
   AppBar,
   Toolbar,
@@ -63,29 +62,31 @@ export default function Layout({ title, description, children }) {
         <CssBaseline />
         <AppBar position="static" className={classes.navbar}>
           <Toolbar>
-            <NextLink href="/" passHref>
-              <Link>
-                <Typography className={classes.brand}>Jesco</Typography>
-              </Link>
-            </NextLink>
+            <Link href="/" className={classes.brand}>
+              Jesco
+            </Link>
             <div className={classes.grow}></div>
             <div>
               <Switch
                 checked={darkMode}
                 onChange={darkModeChangeHandler}
               ></Switch>
-              <NextLink href="/cart" passHref>
-                <Link>
+              <Link href="/cart">
+                <span>
                   {cart.cartItems.length > 0 ? (
-                    <Badge color='secondary' badgeContent={cart.cartItems.length}>Cart</Badge>
+                    <Badge
+                      color="secondary"
+                      badgeContent={cart.cartItems.length}
+                      overlap="rectangular"
+                    >
+                      Cart
+                    </Badge>
                   ) : (
                     'Cart'
                   )}
-                </Link>
-              </NextLink>
-              <NextLink href="/login" passHref>
-                <Link>Login</Link>
-              </NextLink>
+                </span>
+              </Link>
+              <Link href="/login">Login</Link>
             </div>
           </Toolbar>
         </AppBar>
