@@ -11,6 +11,7 @@ const useStyles = makeStyles({
   brand: {
     fontWeight: 'bold',
     fontSize: '1.5rem',
+    marginTop: '-17px;',
   },
   grow: {
     flexGrow: 1,
