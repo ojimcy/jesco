@@ -1,22 +1,34 @@
-import Layout from '@/components/Layout';
-import useStyles from '@/utils/styles';
 import {
-  Button,
-  Link,
   List,
   ListItem,
-  TextField,
   Typography,
+  TextField,
+  Button,
+  Link,
 } from '@material-ui/core';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 import NextLink from 'next/link';
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import Layout from '../components/Layout';
+import Cookies from 'js-cookie';
+import { Store } from '@/utils/Store';
+import useStyles from '@/utils/styles';
 
 export default function Login() {
+  const router = useRouter();
+  const { redirect } = router.query; // login?redirect=/shipping
+  const { state, dispatch } = useContext(Store);
+  const { userInfo } = state;
+  useEffect(() => {
+    if (userInfo) {
+      router.push('/');
+    }
+  }, []);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const classes = useStyles();
-
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
@@ -24,7 +36,9 @@ export default function Login() {
         email,
         password,
       });
-      alert('Logged successfully!')
+      dispatch({ type: 'USER_LOGIN', payload: data });
+      Cookies.set('userInfo', data);
+      router.push(redirect || '/');
     } catch (err) {
       alert(err.response.data ? err.response.data.message : err.message);
     }
@@ -53,7 +67,7 @@ export default function Login() {
               id="password"
               label="Password"
               inputProps={{ type: 'password' }}
-              onChange={(e) => setPassword(e.target.password)}
+              onChange={(e) => setPassword(e.target.value)}
             ></TextField>
           </ListItem>
           <ListItem>
@@ -62,7 +76,7 @@ export default function Login() {
             </Button>
           </ListItem>
           <ListItem>
-            Don't have an accout? &nbsp;
+            Don't have an account? &nbsp;
             <NextLink href="/register" passHref>
               <Link>Register</Link>
             </NextLink>

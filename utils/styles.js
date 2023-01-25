@@ -19,8 +19,7 @@ const useStyles = makeStyles({
     minHeight: '80vh',
   },
   footer: {
-    marginTop: 50,
-    marginBottom: 10,
+    marginTop: 10,
     textAlign: 'center',
   },
   section: {
@@ -30,6 +29,10 @@ const useStyles = makeStyles({
   form: {
     maxWidth: 800,
     margin: '0 auto',
+  },
+  navbarButton: {
+    color: '#ffffff',
+    textTransform: 'initial',
   },
 });
 export default useStyles;
