@@ -5,17 +5,38 @@ export const Store = createContext();
 const initialState = {
   darkMode: Cookies.get('darkMode') === 'ON' ? true : false,
   cart: {
-    cartItems: Cookies.get('cartItems')
-      ? JSON.parse(Cookies.get('cartItems'))
-      : [],
+    cartItems:
+      typeof Cookies.get('cartItems') === 'string'
+        ? (() => {
+            try {
+              return JSON.parse(Cookies.get('cartItems'));
+            } catch (err) {
+              return {};
+            }
+          })()
+        : [],
 
-    shippingAddress: Cookies.get('shippingAddress')
-      ? JSON.parse(Cookies.get('shippingAddress'))
-      : {},
+    shippingAddress:
+      typeof Cookies.get('shippingAddress') === 'string'
+        ? (() => {
+            try {
+              return JSON.parse(Cookies.get('shippingAddress'));
+            } catch (err) {
+              return {};
+            }
+          })()
+        : {},
   },
-  userInfo: Cookies.get('userInfo')
-    ? JSON.parse(Cookies.get('userInfo'))
-    : null,
+  userInfo:
+    typeof Cookies.get('userInfo') === 'string'
+      ? (() => {
+          try {
+            return JSON.parse(Cookies.get('userInfo'));
+          } catch (err) {
+            return {};
+          }
+        })()
+      : null,
 };
 
 function reducer(state, action) {
@@ -48,6 +69,11 @@ function reducer(state, action) {
       return {
         ...state,
         cart: { ...state.cart, shippingAddress: action.payload },
+      };
+    case 'SAVE_PAYMENT_METHOD':
+      return {
+        ...state,
+        cart: { ...state.cart, paymentMethod: action.payload },
       };
     case 'USER_LOGIN':
       return { ...state, userInfo: action.payload };
