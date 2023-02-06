@@ -53,6 +53,12 @@ export default function Shipping() {
     });
     router.push('/payment');
   };
+
+  useEffect(() => {
+    if (!paymentMethod) {
+      router.push('/payment');
+    }
+  }, []);
   return (
     <Layout title="Shipping Address">
       <CheckoutWizard activeStep={1} />

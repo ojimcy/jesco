@@ -26,6 +26,10 @@ const initialState = {
             }
           })()
         : {},
+
+    paymentMethod: Cookies.get('paymentMethod')
+      ? Cookies.get('paymentMethod')
+      : '',
   },
   userInfo:
     typeof Cookies.get('userInfo') === 'string'
