@@ -1,7 +1,8 @@
 import useStyles from '@/utils/styles';
-import { AppBar, Container, Toolbar, Typography } from '@mui/material';
+import { AppBar, Container, Link, Toolbar, Typography } from '@mui/material';
 import Head from 'next/head';
 import React from 'react';
+import NextLink from 'next/link';
 
 export default function Layout({ children }) {
   const classes = useStyles();
@@ -15,7 +16,27 @@ export default function Layout({ children }) {
         className={classes.navbar}
       >
         <Toolbar>
-          <Typography>Jesco</Typography>
+          <NextLink
+            href="/"
+            className={classes.brand}
+          >
+            Jesco
+          </NextLink>
+          <div className={classes.grow}></div>
+          <div>
+            <NextLink
+              href="/cart"
+              passHref
+            >
+              Cart
+            </NextLink>
+            <NextLink
+              href="/login"
+              passHref
+            >
+              Login
+            </NextLink>
+          </div>
         </Toolbar>
       </AppBar>
       <Container className={classes.main}>{children}</Container>

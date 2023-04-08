@@ -1,12 +1,19 @@
-const { makeStyles } = require('@mui/styles');
+import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles({
   navbar: {
     backgroundColor: '#203040',
     '& a': {
-      color: '#FFFFFF',
-      marginLeft: '10',
+      color: '#ffffff',
+      marginLeft: 10,
     },
+  },
+  brand: {
+    fontWeight: 'bold',
+    fontSize: '1.5rem',
+  },
+  grow: {
+    flexGrow: 1,
   },
   main: {
     minHeight: '80vh',
@@ -15,5 +22,4 @@ const useStyles = makeStyles({
     textAlign: 'center',
   },
 });
-
 export default useStyles;
