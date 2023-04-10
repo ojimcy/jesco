@@ -4,12 +4,13 @@ import Head from 'next/head';
 import React from 'react';
 import NextLink from 'next/link';
 
-export default function Layout({ children }) {
+export default function Layout({ title, description, children }) {
   const classes = useStyles();
   return (
     <>
       <Head>
-        <title>Create Next App</title>
+        <title>{title ? `${title} - Jesco Global` : 'Jesco Global'}</title>
+        {description && <meta name="description" content={description}></meta>}
       </Head>
       <AppBar
         position="static"
