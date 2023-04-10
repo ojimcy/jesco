@@ -1,5 +1,5 @@
 import useStyles from '@/utils/styles';
-import { AppBar, Container, Link, Toolbar, Typography } from '@mui/material';
+import { AppBar, Container, Link, Toolbar, Typography,  } from '@mui/material';
 import Head from 'next/head';
 import React from 'react';
 import NextLink from 'next/link';

@@ -1,14 +1,27 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme } from '@mui/material';
 
 const theme = createTheme({
   palette: {
+    type: 'light',
     primary: {
-      main: '#3f51b5',
+      main: '#f0c000',
     },
     secondary: {
-      main: '#f50057',
+      main: '#208000',
     },
   },
+  typography: {
+    h1: {
+      fontSize: '1.6rem',
+      fontWeight: 400,
+      margin: '1rem 0',
+    },
+    h2: {
+      fontSize: '1.4rem',
+      fontWeight: 400,
+      margin: '1rem 0',
+    },
+  }
 });
 
 export default theme;

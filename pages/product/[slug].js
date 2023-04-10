@@ -51,7 +51,7 @@ export default function ProductPage() {
         >
           <List>
             <ListItem>
-              <Typography component='h1'>{product.name}</Typography>{' '}
+              <Typography component='h1' variant='h1'>{product.name}</Typography>{' '}
             </ListItem>
             <ListItem>
               <Typography>Category: {product.category}</Typography>{' '}
