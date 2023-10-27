@@ -1,5 +1,5 @@
 import useStyles from '@/utils/styles';
-import { AppBar, Container, Link, Toolbar, Typography,  } from '@mui/material';
+import { AppBar, Container, Toolbar, Typography,  } from '@mui/material';
 import Head from 'next/head';
 import React from 'react';
 import NextLink from 'next/link';
@@ -12,29 +12,17 @@ export default function Layout({ title, description, children }) {
         <title>{title ? `${title} - Jesco Global` : 'Jesco Global'}</title>
         {description && <meta name="description" content={description}></meta>}
       </Head>
-      <AppBar
-        position="static"
-        className={classes.navbar}
-      >
+      <AppBar position="static" className={classes.navbar}>
         <Toolbar>
-          <NextLink
-            href="/"
-            className={classes.brand}
-          >
+          <NextLink href="/" className={classes.brand}>
             Jesco
           </NextLink>
           <div className={classes.grow}></div>
           <div>
-            <NextLink
-              href="/cart"
-              passHref
-            >
+            <NextLink href="/cart" passHref>
               Cart
             </NextLink>
-            <NextLink
-              href="/login"
-              passHref
-            >
+            <NextLink href="/login" passHref>
               Login
             </NextLink>
           </div>
