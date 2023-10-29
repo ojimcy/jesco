@@ -1,26 +1,32 @@
 import Layout from '@/components/Layout';
-import React from 'react';
+import React, { useContext } from 'react';
 import NextLink from 'next/link';
-import {
-  Button,
-  Card,
-  Grid,
-  List,
-  ListItem,
-  Typography,
-} from '@mui/material';
+import { Button, Card, Grid, List, ListItem, Typography } from '@mui/material';
 import useStyles from '@/utils/styles';
 import Image from 'next/image';
 import db from '@/utils/db';
 import Product from '@/utils/models/Product';
+import axios from 'axios';
+import { Store } from '@/utils/Store';
 
 export default function ProductPage(props) {
+  const { dispatch } = useContext(Store);
   const { product } = props;
   const classes = useStyles();
 
   if (!product) {
     return <div>Product not found</div>;
   }
+
+  const addToCartHandler = async () => {
+    const { data } = await axios.get(`/api/products/${product._id}`);
+    if (data.countInStock <= 0) {
+      window.alert('Product is out of stock');
+    }
+
+    dispatch({ type: 'ADD_TO_CART', payload: { ...product, quantity: 1 } });
+  };
+
   return (
     <Layout title={product.name} description={product.description}>
       <div className={classes.section}>
@@ -87,7 +93,12 @@ export default function ProductPage(props) {
               </Grid>
             </ListItem>
             <ListItem>
-              <Button fullWidth variant="contained" color="primary">
+              <Button
+                fullWidth
+                variant="contained"
+                color="primary"
+                onClick={addToCartHandler}
+              >
                 Add to cart
               </Button>
             </ListItem>

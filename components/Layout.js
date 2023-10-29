@@ -1,11 +1,21 @@
 import useStyles from '@/utils/styles';
-import { AppBar, Container, Toolbar, Typography,  } from '@mui/material';
+import { AppBar, Badge, Container, Toolbar, Typography } from '@mui/material';
 import Head from 'next/head';
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import NextLink from 'next/link';
+import { Store } from '@/utils/Store';
 
 export default function Layout({ title, description, children }) {
+  const { state } = useContext(Store);
+  const { cart } = state;
   const classes = useStyles();
+
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   return (
     <>
       <Head>
@@ -19,12 +29,17 @@ export default function Layout({ title, description, children }) {
           </NextLink>
           <div className={classes.grow}></div>
           <div>
-            <NextLink href="/cart" passHref>
-              Cart
-            </NextLink>
-            <NextLink href="/login" passHref>
-              Login
-            </NextLink>
+            {isClient && (
+              <NextLink href="/cart">
+                <Badge
+                  color="secondary"
+                  badgeContent={cart.cartItems.length || 0}
+                >
+                  Cart
+                </Badge>
+              </NextLink>
+            )}
+            <NextLink href="/login">Login</NextLink>
           </div>
         </Toolbar>
       </AppBar>

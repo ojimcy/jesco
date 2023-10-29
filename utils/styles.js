@@ -5,7 +5,7 @@ const useStyles = makeStyles({
     backgroundColor: '#203040',
     '& a': {
       color: '#ffffff',
-      marginLeft: 10,
+      marginLeft: 25,
     },
   },
   brand: {
@@ -27,5 +27,8 @@ const useStyles = makeStyles({
     marginTop: 10,
     marginBottom: 10,
   },
+  link: {
+    color: ''
+  }
 });
 export default useStyles;
