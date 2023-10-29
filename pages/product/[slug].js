@@ -8,9 +8,11 @@ import db from '@/utils/db';
 import Product from '@/utils/models/Product';
 import axios from 'axios';
 import { Store } from '@/utils/Store';
+import { useRouter } from 'next/router';
 
 export default function ProductPage(props) {
-  const { dispatch } = useContext(Store);
+  const router = useRouter();
+  const { state, dispatch } = useContext(Store);
   const { product } = props;
   const classes = useStyles();
 
@@ -19,12 +21,15 @@ export default function ProductPage(props) {
   }
 
   const addToCartHandler = async () => {
+    const existItem = state.cart.cartItems.find((x) => x._id === product._id);
+    const quantity = existItem ? existItem.quantity + 1 : 1;
     const { data } = await axios.get(`/api/products/${product._id}`);
-    if (data.countInStock <= 0) {
+    if (data.countInStock <= quantity) {
       window.alert('Product is out of stock');
+      return;
     }
-
-    dispatch({ type: 'ADD_TO_CART', payload: { ...product, quantity: 1 } });
+    dispatch({ type: 'ADD_TO_CART', payload: { ...product, quantity } });
+    router.push('/cart');
   };
 
   return (

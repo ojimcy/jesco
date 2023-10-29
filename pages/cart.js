@@ -20,12 +20,26 @@ import NextLink from 'next/link';
 import { Store } from '@/utils/Store';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
+import axios from 'axios';
 
 function Cart() {
-  const { state } = useContext(Store);
+  const { dispatch, state } = useContext(Store);
   const {
     cart: { cartItems },
   } = state;
+
+  const updateCartHandler = async (item, quantity) => {
+    const { data } = await axios.get(`/api/products/${item._id}`);
+    if (data.countInStock < quantity) {
+      window.alert('Product is out of stock!');
+    }
+
+    dispatch({ type: 'ADD_TO_CART', payload: { ...item, quantity } });
+  };
+
+  const removeItemHandler = async (item) => {
+    dispatch({ type: 'CART_REMOVE_ITEM', payload: item });
+  };
   return (
     <Layout title="Shopping Cart">
       <Typography variant="h1" component="h1">
@@ -33,7 +47,10 @@ function Cart() {
       </Typography>
       {cartItems.length === 0 ? (
         <div>
-          Cart is empty. <NextLink href="/">Go Shopping</NextLink>{' '}
+          Cart is empty.{' '}
+          <NextLink href="/" passHref>
+            Go Shopping
+          </NextLink>{' '}
         </div>
       ) : (
         <Grid container spacing={1}>
@@ -69,7 +86,12 @@ function Cart() {
                         </NextLink>
                       </TableCell>
                       <TableCell align="right">
-                        <Select value={item.quantity}>
+                        <Select
+                          value={item.quantity}
+                          onChange={(e) =>
+                            updateCartHandler(item, e.target.value)
+                          }
+                        >
                           {[...Array(item.countInStock).keys()].map((x) => (
                             <MenuItem key={x + 1} value={x + 1}>
                               {x + 1}
@@ -79,7 +101,11 @@ function Cart() {
                       </TableCell>
                       <TableCell align="right">${item.price}</TableCell>
                       <TableCell align="right">
-                        <Button variant="contained" color="secondary">
+                        <Button
+                          variant="contained"
+                          color="secondary"
+                          onClick={() => removeItemHandler(item)}
+                        >
                           x
                         </Button>
                       </TableCell>
