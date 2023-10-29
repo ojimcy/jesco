@@ -21,12 +21,16 @@ import { Store } from '@/utils/Store';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import axios from 'axios';
+import { useRouter } from 'next/router';
+import useStyles from '@/utils/styles';
 
 function Cart() {
+  const router = useRouter()
   const { dispatch, state } = useContext(Store);
   const {
     cart: { cartItems },
   } = state;
+  const classes = useStyles();
 
   const updateCartHandler = async (item, quantity) => {
     const { data } = await axios.get(`/api/products/${item._id}`);
@@ -40,6 +44,11 @@ function Cart() {
   const removeItemHandler = async (item) => {
     dispatch({ type: 'CART_REMOVE_ITEM', payload: item });
   };
+
+  const checkoutHandler = () => {
+    router.push('/shipping');
+  }
+  
   return (
     <Layout title="Shopping Cart">
       <Typography variant="h1" component="h1">
@@ -48,7 +57,7 @@ function Cart() {
       {cartItems.length === 0 ? (
         <div>
           Cart is empty.{' '}
-          <NextLink href="/" passHref>
+          <NextLink className={classes.link} href="/">
             Go Shopping
           </NextLink>{' '}
         </div>
@@ -126,7 +135,7 @@ function Cart() {
                   </Typography>
                 </ListItem>
                 <ListItem>
-                  <Button variant="contained" color="primary" fullWidth>
+                  <Button variant="contained" color="primary" fullWidth onClick={checkoutHandler}>
                     CHECK OUT
                   </Button>
                 </ListItem>

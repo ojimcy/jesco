@@ -27,8 +27,12 @@ const useStyles = makeStyles({
     marginTop: 10,
     marginBottom: 10,
   },
+  form: {
+    maxWidth: 800,
+    margin: '0 auto',
+  },
   link: {
-    color: ''
-  }
+    color: '#f0c000',
+  },
 });
 export default useStyles;
