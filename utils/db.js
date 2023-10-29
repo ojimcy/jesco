@@ -35,5 +35,24 @@ async function disconnect() {
   }
 }
 
-const db = { connect, disconnect };
+function productWithSerializableId(product) {
+  if (Array.isArray(product)) {
+    return product.map((p) => ({
+      ...p,
+      _id: p._id.toString(),
+      createdAt: p.createdAt.toString(),
+      updatedAt: p.updatedAt.toString(),
+    }));
+  } else {
+    return {
+      ...product,
+      _id: product._id.toString(),
+      createdAt: product.createdAt.toString(),
+      updatedAt: product.updatedAt.toString(),
+    };
+  }
+}
+
+
+const db = { connect, disconnect, productWithSerializableId };
 export default db;
