@@ -47,6 +47,9 @@ function PlaceOrder() {
     if (!paymentMethod) {
       router.push('/payment');
     }
+    if(cartItems.length === 0)  {
+      router.push('/cart')
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -59,7 +62,7 @@ function PlaceOrder() {
     try {
       setLoading(true);
       const { data } = await axios.post(
-        '/api/order',
+        '/api/orders',
         {
           orderItems: cartItems,
           shippingAddress,
