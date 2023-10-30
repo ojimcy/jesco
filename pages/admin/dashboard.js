@@ -80,6 +80,11 @@ function AdminDashboard() {
                   <ListItemText primary="Orders"></ListItemText>
                 </ListItem>
               </NextLink>
+              <NextLink href="/admin/products" passHref>
+                <ListItem button component="a">
+                  <ListItemText primary="Products"></ListItemText>
+                </ListItem>
+              </NextLink>
             </List>
           </Card>
         </Grid>
@@ -169,8 +174,7 @@ function AdminDashboard() {
                   Sales Chart
                 </Typography>
               </ListItem>
-              <ListItem>
-              </ListItem>
+              <ListItem></ListItem>
             </List>
           </Card>
         </Grid>
