@@ -38,6 +38,11 @@ function Sidebar({ selectedItem }) {
                 <ListItemText primary="Products" />
               </ListItem>
             </NextLink>
+            <NextLink href="/admin/users" passHref>
+              <ListItem button component="a">
+                <ListItemText primary="Users"></ListItemText>
+              </ListItem>
+            </NextLink>
           </List>
         </Card>
       </Grid>
