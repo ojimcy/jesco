@@ -43,7 +43,10 @@ const useStyles = makeStyles({
     marginTop: 15,
   },
   error: {
-    color: 'f04040'
-  }
+    color: 'f04040',
+  },
+  fullWidth: {
+    width: '100%',
+  },
 });
 export default useStyles;
