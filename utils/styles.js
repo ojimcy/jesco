@@ -31,6 +31,11 @@ const useStyles = makeStyles({
     maxWidth: 800,
     margin: '0 auto',
   },
+  formProfile: {
+    width: '100%',
+    margin: '0 auto',
+    '& button': { color: '#ffffff', fontSize: 18 },
+  },
   link: {
     color: '#f0c000',
   },
