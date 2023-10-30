@@ -11,7 +11,6 @@ import {
   Typography,
   Card,
   Button,
-  ListItemText,
   TableContainer,
   Table,
   TableHead,
@@ -23,6 +22,7 @@ import { Store } from '@/utils/Store';
 import useStyles from '@/utils/styles';
 import { getError } from '@/utils/error';
 import Layout from '@/components/Layout';
+import Sidebar from '@/components/Sidebar';
 
 function reducer(state, action) {
   switch (action.type) {
@@ -71,27 +71,7 @@ function AdminDashboard() {
   return (
     <Layout title="Products">
       <Grid container spacing={1}>
-        <Grid item md={3} xs={12}>
-          <Card className={classes.section}>
-            <List>
-              <NextLink href="/admin/dashboard" passHref>
-                <ListItem button component="a">
-                  <ListItemText primary="Admin Dashboard"></ListItemText>
-                </ListItem>
-              </NextLink>
-              <NextLink href="/admin/orders" passHref>
-                <ListItem button component="a">
-                  <ListItemText primary="Orders"></ListItemText>
-                </ListItem>
-              </NextLink>
-              <NextLink href="/admin/products" passHref>
-                <ListItem selected button component="a">
-                  <ListItemText primary="Products"></ListItemText>
-                </ListItem>
-              </NextLink>
-            </List>
-          </Card>
-        </Grid>
+        <Sidebar selectedItem="products" />
         <Grid item md={9} xs={12}>
           <Card className={classes.section}>
             <List>
