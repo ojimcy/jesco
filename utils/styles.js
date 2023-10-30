@@ -38,8 +38,9 @@ const useStyles = makeStyles({
     color: '#ffffff',
     textTransform: 'initial',
   },
-  transparentBackground: {
-    backgroundColor: 'transparent'
-  }
+  checkoutWizzard: {
+    backgroundColor: 'transparent',
+    marginTop: 15,
+  },
 });
 export default useStyles;
