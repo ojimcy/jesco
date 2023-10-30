@@ -58,7 +58,6 @@ function PlaceOrder() {
 
   const placeOrderHandler = async () => {
     closeSnackbar();
-
     try {
       setLoading(true);
       const { data } = await axios.post(
